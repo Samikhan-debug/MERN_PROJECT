@@ -1,0 +1,36 @@
+
+
+<h1>Manage Products</h1>
+
+<!-- Add Product Form -->
+<h2>Add New Product</h2>
+<form id="addProductForm">
+    <input type="text" name="name" placeholder="Product Name" required>
+    <input type="number" name="price" placeholder="Price" required>
+    <input type="text" name="description" placeholder="Description" required>
+    <input type="text" name="category" placeholder="Category" required>
+    <button type="submit">Add Product</button>
+</form>
+
+<hr>
+
+<!-- Update Product Form (Hidden Initially) -->
+<div id="updateProductForm" style="display:none;">
+    <h2>Update Product</h2>
+    <form>
+        <input type="hidden" id="updateId">
+        <input type="text" id="updateName" placeholder="Product Name" required>
+        <input type="number" id="updatePrice" placeholder="Price" required>
+        <input type="text" id="updateDescription" placeholder="Description" required>
+        <input type="text" id="updateCategory" placeholder="Category" required>
+        <button type="button" onclick="submitUpdate()">Update Product</button>
+    </form>
+</div>
+
+<!-- Product Listing -->
+<h2>Products List</h2>
+<ul id="productList"></ul>
+
+
+
+<script src="/js/productManagement.js"></script>
