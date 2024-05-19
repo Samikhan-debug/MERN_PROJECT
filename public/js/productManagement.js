@@ -5,13 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     addForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(addForm);
-        const data = {};
-        formData.forEach((value, key) => data[key] = value);
-
+    
         fetch('/api/products', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: formData
         })
         .then(response => response.json())
         .then(addProduct)
@@ -19,11 +16,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function addProduct(product) {
-        const item = document.createElement('li');
-        item.innerHTML = `${product.name} - ${product.price} - ${product.description} - ${product.category}
-                          <button onclick="deleteProduct('${product._id}')">Delete</button>
-                          <button onclick="updateProduct('${product._id}')">Update</button>`;
-        productList.appendChild(item);
+        const row = document.createElement('tr');
+        
+        let imageDisplay = product.imageUrl ? `<img src="/${product.imageUrl}" alt="${product.name}" style="max-width: 100px;">` : 'No image';
+        
+        row.innerHTML = `
+            <td>${product._id}</td>
+            <td>${imageDisplay}</td>
+            <td>${product.name}</td>
+            <td>${product.price}</td>
+            <td>${product.description}</td>
+            <td>${product.category}</td>
+            <td>
+                <button class="btn btn-danger" onclick="deleteProduct('${product._id}')">Delete</button>
+                <button class="btn btn-primary" onclick="updateProduct('${product._id}')">Update</button>
+            </td>
+        `;
+        productList.appendChild(row);
     }
 
     function fetchProducts() {
@@ -41,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(() => fetchProducts());
     };
 
-    
     function showUpdateForm(product) {
         document.getElementById('updateId').value = product._id;
         document.getElementById('updateName').value = product.name;
@@ -50,36 +58,37 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('updateCategory').value = product.category;
         document.getElementById('updateProductForm').style.display = 'block';
     }
-    
+
     window.updateProduct = function(id) {
         fetch(`/api/products/${id}`)
         .then(response => response.json())
         .then(product => showUpdateForm(product));
     };
-    
+
     window.submitUpdate = function() {
         const id = document.getElementById('updateId').value;
-        const updatedData = {
-            name: document.getElementById('updateName').value,
-            price: parseFloat(document.getElementById('updatePrice').value),
-            description: document.getElementById('updateDescription').value,
-            category: document.getElementById('updateCategory').value
-        };
-    
+        const formData = new FormData();
+        formData.append('name', document.getElementById('updateName').value);
+        formData.append('price', document.getElementById('updatePrice').value);
+        formData.append('description', document.getElementById('updateDescription').value);
+        formData.append('category', document.getElementById('updateCategory').value);
+        const imageFile = document.getElementById('updateImage').files[0];
+        if (imageFile) {
+            formData.append('image', imageFile);
+        }
+        
         fetch(`/api/products/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedData)
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
             console.log('Update successful:', data);
             document.getElementById('updateProductForm').style.display = 'none';
-            fetchProducts(); // Refresh the list after update
+            fetchProducts();
         })
         .catch(err => console.error('Error:', err));
     };
-    
 
     fetchProducts();
 });

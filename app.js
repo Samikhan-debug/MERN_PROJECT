@@ -11,14 +11,17 @@ const productRoutes = require('./routes/products');
 
 
 
-// Set the view engine to use EJS
+// Set the view engine to use EJSn
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+
 
 // Serve static files from the public directory
 app.use(express.static("public"));
 app.use(bodyParser.json()); // For parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/images', express.static('public/images'));
 
 mongoose
   .connect("mongodb://localhost:27017/WEB_PROJECT")
@@ -75,10 +78,6 @@ app.get('/info/shipping', (req, res) => {
 });
 app.get('/info/payment-method', (req, res) => {
     res.render('paymentpage');
-});
-
-app.get('/product/monitor', (req, res) => {
-    res.render('productmonitor');
 });
 
 

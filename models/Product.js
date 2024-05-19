@@ -4,8 +4,8 @@ const productSchema = mongoose.Schema({
     name: String,
     price: Number,
     description: String,
-    category:String,
-    // imageUrl: { type: String, required: false } // Optional
+    category: String,
+    imageUrl: { type: String, required: false } // Include image URL field
 });
 
 let Product = mongoose.model('Product', productSchema);

@@ -41,12 +41,7 @@ body, html {
     gap: 20px;
 }
 
-.product {
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 0 8px #ccc;
-    padding: 10px;
-}
+
 
 .text {
     margin-top: 8px;
@@ -55,9 +50,7 @@ body, html {
 }
 
 
-
 .container{
     background-color: white;
     padding: 30px;
 }
-

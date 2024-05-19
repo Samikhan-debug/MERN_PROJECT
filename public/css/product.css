@@ -6,12 +6,13 @@ body, html {
 
 .container {
     display: flex;
+    padding: 40px;
 }
 
 .sidebar {
-    width: 30%;
+    width: 15%;
     background-color: #1A1919;
-    padding: 20px;
+    padding: 30px;
 
 }
 
@@ -24,7 +25,7 @@ body, html {
     text-decoration: none;
     color: white;
     display: block;
-    padding: 8px;
+    padding: 10px;
     transition: background-color 0.3s;
 }
 
@@ -41,41 +42,61 @@ body, html {
     gap: 20px;
 }
 
-.product {
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 0 8px #ccc;
-    padding: 10px;
+.head2{
+    font-size: 32px;
+    font-weight: bolder;
+    font-style:italic;
+    padding-left: 20px;
 }
 
-.product img {
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
     width: 100%;
     height: auto;
 }
 
-.text {
-    margin-top: 8px;
+.card-body {
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.25rem;
     font-weight: bold;
-    color: white;
 }
 
-.custom-card {
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-.container{
-    background-color: white;
-    padding: 30px;
+.card-subtitle {
+    font-size: 1rem;
+    color: red;
+    margin-top: 10px;
 }
 
-.btn {
+.card-text {
+    margin-top: 10px;
+    color: #666;
+}
+
+.btn.add-to-cart {
+    margin-top: 15px;
     background-color: red;
+    color: white;
     border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
-.btn:hover{
-    background-color:#1a1919
+
+.btn.add-to-cart:hover {
+    background-color: rgb(125, 51, 51);
 }
